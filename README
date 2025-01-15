@@ -1,3 +1,4 @@
+# 版本資訊
 ## Current Version
 
 | Version      | 日期區間                         | Release Notes | Website          |
@@ -50,3 +51,10 @@
 | ATT&CK v3.0    | October 23, 2018 – April 29, 2019            | Release Notes   | v3.0 Website          |
 | ATT&CK v2.0    | April 13, 2018 – October 22, 2018            | Release Notes   | No Website            |
 | ATT&CK v1.0    | January 16, 2018 – April 12, 2018            | Release Notes   | No Website            |
+# 軟體類別爬蟲
+## 簡易列表爬蟲
+- 簡易列表為從software/頁面爬爬取所有軟體的ID、名稱、敘述做成一份json
+### 爬蟲結果如圖
+![image](https://hackmd.io/_uploads/ByFYE6EPye.png)
+## 軟體詳細資訊爬蟲
+- MITRE ATT&CK列表中的軟體類別的個別項目在url部分是使用ID索引，因此這邊可以使用前面簡易列表內的ID進行爬取

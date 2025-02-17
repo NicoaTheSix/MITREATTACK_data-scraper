@@ -1,0 +1,208 @@
+{
+    "enterprise": {
+        "TA0043": {
+            "ID": "TA0043",
+            "name": "Reconnaissance",
+            "description": "The adversary is trying to gather information they can use to plan future operations."
+        },
+        "TA0042": {
+            "ID": "TA0042",
+            "name": "Resource Development",
+            "description": "The adversary is trying to establish resources they can use to support operations."
+        },
+        "TA0001": {
+            "ID": "TA0001",
+            "name": "Initial Access",
+            "description": "The adversary is trying to get into your network."
+        },
+        "TA0002": {
+            "ID": "TA0002",
+            "name": "Execution",
+            "description": "The adversary is trying to run malicious code."
+        },
+        "TA0003": {
+            "ID": "TA0003",
+            "name": "Persistence",
+            "description": "The adversary is trying to maintain their foothold."
+        },
+        "TA0004": {
+            "ID": "TA0004",
+            "name": "Privilege Escalation",
+            "description": "The adversary is trying to gain higher-level permissions."
+        },
+        "TA0005": {
+            "ID": "TA0005",
+            "name": "Defense Evasion",
+            "description": "The adversary is trying to avoid being detected."
+        },
+        "TA0006": {
+            "ID": "TA0006",
+            "name": "Credential Access",
+            "description": "The adversary is trying to steal account names and passwords."
+        },
+        "TA0007": {
+            "ID": "TA0007",
+            "name": "Discovery",
+            "description": "The adversary is trying to figure out your environment."
+        },
+        "TA0008": {
+            "ID": "TA0008",
+            "name": "Lateral Movement",
+            "description": "The adversary is trying to move through your environment."
+        },
+        "TA0009": {
+            "ID": "TA0009",
+            "name": "Collection",
+            "description": "The adversary is trying to gather data of interest to their goal."
+        },
+        "TA0011": {
+            "ID": "TA0011",
+            "name": "Command and Control",
+            "description": "The adversary is trying to communicate with compromised systems to control them."
+        },
+        "TA0010": {
+            "ID": "TA0010",
+            "name": "Exfiltration",
+            "description": "The adversary is trying to steal data."
+        },
+        "TA0040": {
+            "ID": "TA0040",
+            "name": "Impact",
+            "description": "The adversary is trying to manipulate, interrupt, or destroy your systems and data."
+        }
+    },
+    "mobile": {
+        "TA0027": {
+            "ID": "TA0027",
+            "name": "Initial Access",
+            "description": "The adversary is trying to get into your device."
+        },
+        "TA0041": {
+            "ID": "TA0041",
+            "name": "Execution",
+            "description": "The adversary is trying to run malicious code."
+        },
+        "TA0028": {
+            "ID": "TA0028",
+            "name": "Persistence",
+            "description": "The adversary is trying to maintain their foothold."
+        },
+        "TA0029": {
+            "ID": "TA0029",
+            "name": "Privilege Escalation",
+            "description": "The adversary is trying to gain higher-level permissions."
+        },
+        "TA0030": {
+            "ID": "TA0030",
+            "name": "Defense Evasion",
+            "description": "The adversary is trying to avoid being detected."
+        },
+        "TA0031": {
+            "ID": "TA0031",
+            "name": "Credential Access",
+            "description": "The adversary is trying to steal account names, passwords, or other secrets that enable access to resources."
+        },
+        "TA0032": {
+            "ID": "TA0032",
+            "name": "Discovery",
+            "description": "The adversary is trying to figure out your environment."
+        },
+        "TA0033": {
+            "ID": "TA0033",
+            "name": "Lateral Movement",
+            "description": "The adversary is trying to move through your environment."
+        },
+        "TA0035": {
+            "ID": "TA0035",
+            "name": "Collection",
+            "description": "The adversary is trying to gather data of interest to their goal."
+        },
+        "TA0037": {
+            "ID": "TA0037",
+            "name": "Command and Control",
+            "description": "The adversary is trying to communicate with compromised devices to control them."
+        },
+        "TA0036": {
+            "ID": "TA0036",
+            "name": "Exfiltration",
+            "description": "The adversary is trying to steal data."
+        },
+        "TA0034": {
+            "ID": "TA0034",
+            "name": "Impact",
+            "description": "The adversary is trying to manipulate, interrupt, or destroy your devices and data."
+        },
+        "TA0038": {
+            "ID": "TA0038",
+            "name": "Network Effects",
+            "description": "The adversary is trying to intercept or manipulate network traffic to or from a device."
+        },
+        "TA0039": {
+            "ID": "TA0039",
+            "name": "Remote Service Effects",
+            "description": "The adversary is trying to control or monitor the device using remote services."
+        }
+    },
+    "ics": {
+        "TA0108": {
+            "ID": "TA0108",
+            "name": "Initial Access",
+            "description": "The adversary is trying to get into your ICS environment."
+        },
+        "TA0104": {
+            "ID": "TA0104",
+            "name": "Execution",
+            "description": "The adversary is trying to run code or manipulate system functions, parameters, and data in an unauthorized way."
+        },
+        "TA0110": {
+            "ID": "TA0110",
+            "name": "Persistence",
+            "description": "The adversary is trying to maintain their foothold in your ICS environment."
+        },
+        "TA0111": {
+            "ID": "TA0111",
+            "name": "Privilege Escalation",
+            "description": "The adversary is trying to gain higher-level permissions."
+        },
+        "TA0103": {
+            "ID": "TA0103",
+            "name": "Evasion",
+            "description": "The adversary is trying to avoid security defenses."
+        },
+        "TA0102": {
+            "ID": "TA0102",
+            "name": "Discovery",
+            "description": "The adversary is locating information to assess and identify their targets in your environment."
+        },
+        "TA0109": {
+            "ID": "TA0109",
+            "name": "Lateral Movement",
+            "description": "The adversary is trying to move through your ICS environment."
+        },
+        "TA0100": {
+            "ID": "TA0100",
+            "name": "Collection",
+            "description": "The adversary is trying to gather data of interest and domain knowledge on your ICS environment to inform their goal."
+        },
+        "TA0101": {
+            "ID": "TA0101",
+            "name": "Command and Control",
+            "description": "The adversary is trying to communicate with and control compromised systems, controllers, and platforms with access to your ICS environment."
+        },
+        "TA0107": {
+            "ID": "TA0107",
+            "name": "Inhibit Response Function",
+            "description": "The adversary is trying to prevent your safety, protection, quality assurance, and operator intervention functions from responding to a failure, hazard, or unsafe state."
+        },
+        "TA0106": {
+            "ID": "TA0106",
+            "name": "Impair Process Control",
+            "description": "The adversary is trying to manipulate, disable, or damage physical control processes."
+        },
+        "TA0105": {
+            "ID": "TA0105",
+            "name": "Impact",
+            "description": "The adversary is trying to manipulate, interrupt, or destroy your ICS systems, data, and their surrounding environment."
+        }
+    }
+}

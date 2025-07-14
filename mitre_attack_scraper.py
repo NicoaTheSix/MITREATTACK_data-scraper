@@ -4,6 +4,68 @@ import os
 import json
 import re
 
+# ---------------------------------------------------------------------------
+# Helper functions for scraping additional details from ATT&CK object pages
+# ---------------------------------------------------------------------------
+
+def _get_soup(url):
+    """Fetches a URL and returns a BeautifulSoup object."""
+    try:
+        r = requests.get(url)
+        r.raise_for_status()
+        return BeautifulSoup(r.text, 'html.parser')
+    except Exception as e:
+        print(f"Failed to fetch {url}: {e}")
+        return BeautifulSoup('', 'html.parser')
+
+
+def _parse_card_metadata(soup):
+    """Parses metadata from the side card."""
+    metadata = {}
+    card = soup.find('div', class_='card-body')
+    if not card:
+        return metadata
+    for div in card.find_all('div', class_='card-data'):
+        title = div.find('span', class_='h5') or div.find('span', class_='h5 card-title')
+        if title:
+            key = title.text.replace(':', '').strip().lower().replace(' ', '_')
+            text = div.get_text(separator=' ', strip=True)
+            value = text.split(':', 1)[1].strip() if ':' in text else ''
+            metadata[key] = value
+    return metadata
+
+
+def _parse_references(soup):
+    """Extracts reference list items."""
+    refs = []
+    ref_h2 = soup.find('h2', id='references')
+    if ref_h2:
+        ref_div = ref_h2.find_next('div', class_='row')
+        if ref_div:
+            for li in ref_div.find_all('li'):
+                refs.append(li.get_text(separator=' ', strip=True))
+    return refs
+
+
+def _parse_table_section(soup, section_id):
+    """Returns a list of dictionaries for rows in the table following the h2."""
+    results = []
+    h2 = soup.find('h2', id=section_id)
+    if not h2:
+        return results
+    table = h2.find_next('table')
+    if not table or not table.find('tbody'):
+        return results
+    headers = [th.text.strip().lower().replace(' ', '_') for th in table.find_all('th')]
+    for row in table.find('tbody').find_all('tr'):
+        cols = [td.get_text(separator=' ', strip=True) for td in row.find_all('td')]
+        if len(cols) == len(headers) + 1:
+            cols[1] = cols[1] + cols[2]
+            cols.pop(2)
+        entry = {k: cols[i] if i < len(cols) else '' for i, k in enumerate(headers)}
+        results.append(entry)
+    return results
+
 def get_attack_version(url):
     """
     Tries to get the ATT&CK version from the main page.
@@ -89,6 +151,18 @@ def scrape_simple_table(url, category_name, third_column_name=None):
         
     return data
 
+
+def scrape_table_with_details(url, category_name, third_column_name=None, detail_fn=None, base_url="https://attack.mitre.org"):
+    """Scrapes a table and optionally augments each entry with page details."""
+    data = scrape_simple_table(url, category_name, third_column_name)
+    if not detail_fn:
+        return data
+    for item_id, entry in data.items():
+        link = f"{base_url}/{category_name.lower()}/{item_id}/"
+        detail = detail_fn(link)
+        entry.update(detail)
+    return data
+
 def scrape_techniques(url):
     print(f"Scraping techniques from {url}")
     response = requests.get(url)
@@ -136,24 +210,92 @@ def scrape_techniques(url):
 
     return techniques
 
+
+# ---------------------------------------------------------------------------
+# Detailed scrapers for various ATT&CK object types
+# ---------------------------------------------------------------------------
+
+def scrape_mitigation_details(url):
+    soup = _get_soup(url)
+    details = {
+        "metadata": _parse_card_metadata(soup),
+        "techniques": _parse_table_section(soup, "techniques"),
+        "references": _parse_references(soup)
+    }
+    return details
+
+
+def scrape_datasource_details(url):
+    soup = _get_soup(url)
+    details = {
+        "metadata": _parse_card_metadata(soup),
+        "data_components": _parse_table_section(soup, "datacomponents"),
+        "references": _parse_references(soup)
+    }
+    return details
+
+
+def scrape_asset_details(url):
+    soup = _get_soup(url)
+    details = {
+        "metadata": _parse_card_metadata(soup),
+        "techniques": _parse_table_section(soup, "techniques")
+    }
+    return details
+
+
+def scrape_group_details(url):
+    soup = _get_soup(url)
+    details = {
+        "metadata": _parse_card_metadata(soup),
+        "techniques": _parse_table_section(soup, "techniques"),
+        "software": _parse_table_section(soup, "software"),
+        "references": _parse_references(soup)
+    }
+    return details
+
+
+def scrape_software_details(url):
+    soup = _get_soup(url)
+    details = {
+        "metadata": _parse_card_metadata(soup),
+        "techniques": _parse_table_section(soup, "techniques"),
+        "groups": _parse_table_section(soup, "groups"),
+        "references": _parse_references(soup)
+    }
+    return details
+
+
+def scrape_campaign_details(url):
+    soup = _get_soup(url)
+    details = {
+        "metadata": _parse_card_metadata(soup),
+        "groups": _parse_table_section(soup, "groups"),
+        "techniques": _parse_table_section(soup, "techniques"),
+        "software": _parse_table_section(soup, "software"),
+        "references": _parse_references(soup)
+    }
+    return details
+
 def scrape_all(base_url):
     """
     Scrapes all categories from the MITRE ATT&CK website.
     """
     all_data = {}
     
-    # Scrape simple tables
+    # Scrape simple tables with details
     categories = {
-        "groups": ("Associated Groups", None),
-        "software": ("Software", None),
-        "campaigns": ("Campaigns", None),
-        "assets": ("Assets", "platforms"),
-        "datasources": ("Data Sources", "platforms")
+        "groups": ("Associated Groups", None, scrape_group_details),
+        "software": ("Software", None, scrape_software_details),
+        "campaigns": ("Campaigns", None, scrape_campaign_details),
+        "assets": ("Assets", "platforms", scrape_asset_details),
+        "datasources": ("Data Sources", "platforms", scrape_datasource_details),
+        "mitigations": ("Mitigations", None, scrape_mitigation_details)
     }
     
-    for category, (name, third_col) in categories.items():
+    for category, (name, third_col, detail_fn) in categories.items():
         url = f"{base_url}/{category}/"
-        all_data[category] = scrape_simple_table(url, name, third_col)
+        all_data[category] = scrape_table_with_details(url, category, third_col, detail_fn, base_url)
         
     # Scrape tactics (has sub-pages)
     all_data["tactics"] = {}

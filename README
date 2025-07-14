@@ -1,9 +1,10 @@
-# 版本資訊
+# MITRE ATT&CK scraper
+This repositort is built to automatically scrap information from [MITRE ATT&CK](https://attack.mitre.org/).The data in each categories is transform into dictionary in Python and stored in ".json" later. 
 ## Current Version
 
-| Version      | 日期區間                         |  Website          |
-| :----------- | :-------------------------------- |:--------------: |
-| ATT&CK v16.1 | October 31, 2024 – Current        |  v16.1 Website    |
+| Version      | 日期區間                         |
+| :----------- | :-------------------------------- |
+| ATT&CK v17.1 | April 22, 2025 – Current        |
 
 ---
 ### The tactic of the current version.
@@ -24,37 +25,24 @@
 | TA0010 | Exfiltration          |steal data.                                                                |
 | TA0040 | Impact                |manipulate, interrupt, or destroy your systems and data.                   |
 
-## Most Recent Versions
-
-| Version      | 日期區間                                    |  Website          |
-| :----------- | :----------------------------------------- | :--------------: |
-| ATT&CK v15.1 | April 23, 2024 – October 30, 2024           |  v15.1 Website    |
-| ATT&CK v14.1 | October 31, 2023 – April 22, 2024           |  v14.1 Website    |
-| ATT&CK v13.1 | April 25, 2023 – October 30, 2023           |  v13.1 Website    |
-
----
-
 ## Older Versions
 
-| Version        | 日期區間                                     | Website               |
-| :------------: | :------------------------------------------: | :-------------------: |
-| ATT&CK v12.1   | October 25, 2022 – April 24, 2023            | v12.1 Website         |
-| ATT&CK v11.3   | April 25, 2022 – October 24, 2022            | v11.3 Website         |
-| ATT&CK v10.1   | October 21, 2021 – April 24, 2022            | v10.1 Website         |
-| ATT&CK v9.0    | April 29, 2021 – October 20, 2021            | v9.0 Website          |
-| ATT&CK v8.2    | October 27, 2020 – April 28, 2021            | v8.2 Website          |
-| ATT&CK v7.2    | July 8, 2020 – October 26, 2020              | v7.2 Website          |
-| ATT&CK v7.0-beta | March 31, 2020 – July 7, 2020              | v7.0-beta Website     |
-| ATT&CK v6.3    | October 24, 2019 – March 30, 2020            | v6.3 Website          |
-| ATT&CK v5.2    | July 31, 2019 – October 23, 2019             | v5.2 Website          |
-| ATT&CK v4.0    | April 30, 2019 – July 30, 2019               | v4.0 Website          |
-| ATT&CK v3.0    | October 23, 2018 – April 29, 2019            | v3.0 Website          |
-| ATT&CK v2.0    | April 13, 2018 – October 22, 2018            | No Website            |
-| ATT&CK v1.0    | January 16, 2018 – April 12, 2018            | No Website            |
-# 軟體類別爬蟲
-## 簡易列表爬蟲
-- 簡易列表為從software/頁面爬爬取所有軟體的ID、名稱、敘述做成一份json
-### 爬蟲結果如圖
-![image](https://hackmd.io/_uploads/ByFYE6EPye.png)
-## 軟體詳細資訊爬蟲
-- MITRE ATT&CK列表中的軟體類別的個別項目在url部分是使用ID索引，因此這邊可以使用前面簡易列表內的ID進行爬取
+| Version        | 日期區間                                     |
+| :------------: | :------------------------------------------: |
+| ATT&CK v16.1   | October 31, 2024 – April 21, 2025            |
+| ATT&CK v15.1   | April 23, 2024 – October 30, 2024           |
+| ATT&CK v14.1   | October 31, 2023 – April 22, 2024           |
+| ATT&CK v13.1   | April 25, 2023 – October 30, 2023           |
+| ATT&CK v12.1   | October 25, 2022 – April 24, 2023            |
+| ATT&CK v11.3   | April 25, 2022 – October 24, 2022            |
+| ATT&CK v10.1   | October 21, 2021 – April 24, 2022            |
+| ATT&CK v9.0    | April 29, 2021 – October 20, 2021            |
+| ATT&CK v8.2    | October 27, 2020 – April 28, 2021            |
+| ATT&CK v7.2    | July 8, 2020 – October 26, 2020              |
+| ATT&CK v7.0-beta | March 31, 2020 – July 7, 2020              |
+| ATT&CK v6.3    | October 24, 2019 – March 30, 2020            |
+| ATT&CK v5.2    | July 31, 2019 – October 23, 2019             |
+| ATT&CK v4.0    | April 30, 2019 – July 30, 2019               |
+| ATT&CK v3.0    | October 23, 2018 – April 29, 2019            |
+| ATT&CK v2.0    | April 13, 2018 – October 22, 2018            |
+| ATT&CK v1.0    | January 16, 2018 – April 12, 2018            |

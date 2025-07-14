@@ -3,13 +3,13 @@ This repositort is built to automatically scrap information from [MITRE ATT&CK](
 ## Current Version
 
 | Version      | 日期區間                         |
-| :----------- | :-------------------------------- |
+| :----------: | :--------------------------------: |
 | ATT&CK v17.1 | April 22, 2025 – Current        |
 
 ---
 ### The tactic of the current version.
 | ID     | Name                  | Description                                                               |
-|--------|-----------------------|---------------------------------------------------------------------------|
+| :-------:|:---------------------:|:----------------------------------------------------------------------: |
 | TA0043 | Reconnaissance        |gather information they can use to plan future operations.                 |
 | TA0042 | Resource Development  |establish resources they can use to support operations.                    |
 | TA0001 | Initial Access        |get into your network.                                                     |

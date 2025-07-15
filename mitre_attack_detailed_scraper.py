@@ -15,7 +15,10 @@ def scrape_technique_details(url):
         "description": "N/A",
         "metadata": {},
         "sub_techniques": [],
-        "procedure_examples": []
+        "procedure_examples": [],
+        "mitigations": [],
+        "detections": [],
+        "references": []
     }
     try:
         response = requests.get(url)
@@ -80,6 +83,51 @@ def scrape_technique_details(url):
                             proc_name = name_link.text.strip()
                             proc_desc = desc_cell.get_text(separator="\n").strip()
                             details['procedure_examples'].append({'id': proc_id, 'name': proc_name, 'description': proc_desc})
+
+        # --- Mitigations ---
+        mitig_h2 = soup.find('h2', id='mitigations')
+        if mitig_h2:
+            mitig_table = mitig_h2.find_next('table')
+            if mitig_table and mitig_table.find('tbody'):
+                for row in mitig_table.find('tbody').find_all('tr'):
+                    cols = row.find_all('td')
+                    if len(cols) >= 3:
+                        id_link = cols[0].find('a')
+                        name_link = cols[1].find('a')
+                        desc_cell = cols[2]
+                        if id_link and name_link and desc_cell:
+                            mitig_id = id_link.text.strip()
+                            mitig_name = name_link.text.strip()
+                            mitig_desc = desc_cell.get_text(separator="\n").strip()
+                            details['mitigations'].append({'id': mitig_id, 'name': mitig_name, 'description': mitig_desc})
+
+        # --- Detection ---
+        detect_h2 = soup.find('h2', id='detection')
+        if detect_h2:
+            detect_table = detect_h2.find_next('table')
+            if detect_table and detect_table.find('tbody'):
+                for row in detect_table.find('tbody').find_all('tr'):
+                    cols = row.find_all('td')
+                    if len(cols) >= 4:
+                        ds_id = cols[0].get_text(strip=True)
+                        ds_name = cols[1].get_text(strip=True)
+                        ds_component = cols[2].get_text(strip=True)
+                        detects_desc = cols[3].get_text(separator="\n").strip()
+                        details['detections'].append({
+                            'id': ds_id,
+                            'data_source': ds_name,
+                            'data_component': ds_component,
+                            'detects': detects_desc
+                        })
+
+        # --- References ---
+        ref_h2 = soup.find('h2', id='references')
+        if ref_h2:
+            ref_row = ref_h2.find_next('div', class_='row')
+            if ref_row:
+                for li in ref_row.find_all('li'):
+                    ref_text = li.get_text(separator=' ', strip=True)
+                    details['references'].append(ref_text)
 
     except Exception as e:
         print(f"An error occurred while scraping {url}: {e}")
